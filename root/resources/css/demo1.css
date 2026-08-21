@@ -98,6 +98,12 @@ body {
     transform: translateY(-2px);
 }
 
+.login_button:focus {
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+    transform: translateY(-2px);
+}
+
 /* Signup Button */
 .signup_button {
     background-color: #ffffff;
@@ -106,6 +112,11 @@ body {
 }
 
 .signup_button:hover {
+    background-color: #eff6ff;
+    transform: translateY(-2px);
+}
+
+.signup_button:focus {
     background-color: #eff6ff;
     transform: translateY(-2px);
 }
@@ -157,6 +168,48 @@ body {
     height: 100%;
     display: block;
     object-fit: cover;
+}
+
+footer {
+    width: 100%;
+    background-color: #1f2937;
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    box-sizing: border-box;
+    margin-top: 40px;
+}
+
+.footer_content h2 {
+    margin: 0 0 10px;
+    font-size: 24px;
+}
+
+.footer_content p {
+    margin: 8px 0;
+    color: #d1d5db;
+}
+
+.footer_links {
+    margin: 20px 0;
+}
+
+.footer_links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 16px;
+}
+
+.footer_links a:hover {
+    color: #60a5fa;
+}
+
+.copyright {
+    border-top: 1px solid #4b5563;
+    padding-top: 15px;
+    margin-top: 20px !important;
+    font-size: 14px;
 }
 
 /* Infinite scrolling animation */
