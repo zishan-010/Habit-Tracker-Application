@@ -24,17 +24,18 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
     padding: 24px;
 }
 
-/* ambient blobs, echoing the landing page */
+/* Ambient background blobs */
 .blob {
     position: absolute;
     border-radius: 50%;
     background: var(--blob);
     filter: blur(2px);
     z-index: 0;
+    pointer-events: none;
 }
 
 .blob-1 {
@@ -42,33 +43,31 @@ body {
     height: 420px;
     top: -160px;
     right: -140px;
-    z-index: 0;
 }
 
 .blob-2 {
     width: 340px;
     height: 340px;
-    bottom: -140px;
+    bottom: 0px;
     left: -120px;
-    z-index: 0;
 }
 
+/* Main layout */
 .main_container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1100px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 80px;
-    padding: 20px;
-    flex-wrap: wrap;
-    z-index: 10;
+    position: relative;
+    z-index: 1;
 }
 
+/* Left side */
 .container {
     width: 100%;
-    max-width: 500px;
-    flex: 1 1 420px;
+    max-width: 450px;
     display: flex;
     flex-direction: column;
 }
@@ -90,8 +89,8 @@ h1 span {
 .subtitle {
     text-align: center;
     color: var(--gray);
-    font-size: clamp(0.95rem, 2vw, 1.15rem);
-    margin-bottom: 30px;
+    font-size: 15px;
+    line-height: 1.5;
 }
 
 .card {
@@ -100,7 +99,7 @@ h1 span {
     margin: 0 auto;
 }
 
-
+/* Form */
 form {
     display: flex;
     flex-direction: column;
@@ -119,15 +118,17 @@ label {
     color: var(--navy);
 }
 
+input[type="text"],
 input[type="email"],
 input[type="password"] {
+    width: 100%;
     padding: 12px 14px;
     border: 1.5px solid var(--border);
     border-radius: 10px;
     font-size: 14px;
     color: var(--navy);
     outline: none;
-    transition: border-color .15s ease, box-shadow .15s ease;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
     background: #fff;
 }
 
@@ -140,38 +141,46 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(59, 92, 246, 0.15);
 }
 
-.row-between {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 13px;
-    margin-top: -4px;
+/* Password hint */
+.hint {
+    color: var(--gray-light);
+    font-size: 12px;
+    margin-top: 1px;
 }
 
-.remember {
+/* Terms */
+.terms {
     display: flex;
-    align-items: center;
-    gap: 6px;
+    align-items: flex-start;
+    gap: 7px;
     color: var(--gray);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-top: 2px;
 }
 
-.remember input {
+.terms input {
     accent-color: var(--blue);
     width: 14px;
     height: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
 }
 
-.forgot {
+.terms a {
     color: var(--blue);
-    text-decoration: none;
     font-weight: 600;
+    text-decoration: none;
 }
 
-.forgot:hover {
+.terms a:hover {
     text-decoration: underline;
 }
 
-.btn-login {
+/* Signup button */
+.btn-signup {
+    width: 100%;
     margin-top: 8px;
     padding: 13px;
     border: none;
@@ -181,17 +190,18 @@ input:focus {
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
-    transition: background .15s ease, transform .05s ease;
+    transition: background 0.15s ease, transform 0.05s ease;
 }
 
-.btn-login:hover {
+.btn-signup:hover {
     background: var(--blue-dark);
 }
 
-.btn-login:active {
+.btn-signup:active {
     transform: scale(0.99);
 }
 
+/* Divider */
 .divider {
     display: flex;
     align-items: center;
@@ -209,99 +219,105 @@ input:focus {
     background: var(--border);
 }
 
-.btn-google {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 11px;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    background: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--navy);
-    cursor: pointer;
-    transition: border-color .15s ease, background .15s ease;
-}
-
-.btn-google:hover {
-    background: #F9FAFB;
-    border-color: var(--gray-light);
-}
-
-.signup-line {
+/* Login link */
+.login-line {
     text-align: center;
     font-size: 14px;
     color: var(--gray);
     margin-top: 26px;
 }
 
-.signup-line a {
+.login-line a {
     color: var(--blue);
     font-weight: 700;
     text-decoration: none;
 }
 
-.signup-line a:hover {
+.login-line a:hover {
     text-decoration: underline;
 }
 
-@media (max-width: 768px) {
+/* Tablet */
+@media (max-width: 850px) {
     body {
-        padding: 16px;
+        padding: 20px;
         overflow-y: auto;
     }
 
     .main_container {
         flex-direction: column;
-        gap: 40px;
-        padding: 10px 0;
+        gap: 35px;
+        max-width: 600px;
     }
 
     .container {
-        width: 100%;
         max-width: 600px;
-        flex: none;
     }
 
     h1 {
-        font-size: clamp(2.25rem, 10vw, 3.5rem);
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
     }
 
     .card {
-        max-width: 100%;
+        max-width: 500px;
     }
 }
 
+/* Mobile */
 @media (max-width: 480px) {
     body {
-        padding: 12px;
+        padding: 16px;
+        align-items: flex-start;
     }
 
-    .card {
-        padding: 28px 20px;
-        border-radius: 16px;
+    .main_container {
+        gap: 28px;
+        padding: 20px 0;
     }
 
     h1 {
-        font-size: 2.25rem;
+        font-size: 2.4rem;
     }
 
-    .icon-wrap svg {
-        width: 60px;
-        height: 60px;
+    .subtitle {
+        font-size: 14px;
     }
 
-    .row-between {
-        flex-wrap: wrap;
-        gap: 10px;
+    .card {
+        padding: 30px 22px 28px;
+        border-radius: 16px;
+    }
+
+    form {
+        gap: 15px;
+    }
+
+    .terms {
+        font-size: 11.5px;
+    }
+
+    .blob-1 {
+        width: 280px;
+        height: 280px;
+        top: -120px;
+        right: -130px;
+    }
+
+    .blob-2 {
+        width: 240px;
+        height: 240px;
+        bottom: -120px;
+        left: -130px;
     }
 }
 
-@media (max-width:480px) {
+/* Very small screens */
+@media (max-width: 360px) {
+    h1 {
+        font-size: 2rem;
+    }
+
     .card {
-        padding: 32px 24px 28px;
-        border-radius: 16px;
+        padding: 26px 18px 24px;
     }
 }
