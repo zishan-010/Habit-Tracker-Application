@@ -1,10 +1,11 @@
+<?php require_once __DIR__ . '/../config/csrf.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="iamge/png" href="../resources/images/title_icon.png">
+    <link rel="icon" type="image/png" href="../resources/images/title_icon.png">
     <title> Sign up — Habit Tracker </title>
     <link rel="stylesheet" href="../resources/css/signuppage.css">
 </head>
@@ -20,7 +21,9 @@
             <p class="subtitle">Create an account to start tracking</p>
         </div>
         <div class="card">
-            <form>
+            <form action="signup_process.php" method="POST">
+                <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+
                 <div class="field">
                     <label for="name">Full name</label>
                     <input type="text" id="name" name="name" placeholder="Your name" required>
@@ -45,7 +48,8 @@
 
                 <label class="terms">
                     <input type="checkbox" id="terms" name="terms" required>
-                    I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                    I agree to the <a href="termspage.html">Terms of Service</a> and <a href="privacypage.html">Privacy
+                        Policy</a>
                 </label>
 
                 <button type="submit" class="btn-signup">Create account</button>

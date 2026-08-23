@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/../config/csrf.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +20,9 @@
         </div>
         <div class="card">
 
-            <form>
+            <form action="login_process.php" method="POST">
+                <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+
                 <div class="field">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="you@example.com" required>
@@ -42,7 +45,7 @@
             </form>
 
             <div class="divider">or continue with</div>
-            <p class="signup-line">Don't have an account? <a href="../pages/signuppage.html">Sign up</a></p>
+            <p class="signup-line">Don't have an account? <a href="../pages/signuppage.php">Sign up</a></p>
         </div>
     </div>
 </body>
