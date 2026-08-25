@@ -40,8 +40,8 @@
                     </label>
                     <a href="#" class="forgot">Forgot password?</a>
                 </div>
-
-                <button type="submit" class="btn-login">Log in</button>
+                </a>
+                <button type="submit" class="btn-login">Login</button>
             </form>
 
             <div class="divider">or continue with</div>

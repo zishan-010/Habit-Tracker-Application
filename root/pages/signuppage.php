@@ -56,7 +56,7 @@
             </form>
 
             <div class="divider">or continue with</div>
-            <p class="login-line">Already have an account? <a href="../pages/loginpage.html">Log in</a></p>
+            <p class="login-line">Already have an account? <a href="../pages/loginpage.php">Log in</a></p>
         </div>
     </div>
 

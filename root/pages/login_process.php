@@ -22,8 +22,8 @@ ini_set('session.cookie_samesite', 'Strict');
 session_start();
 require_once __DIR__ . '/../config/Database.php';
 
-header('Content-Type: application/json');
-
+header("Location: ../pages/mainpage.html");
+// header('Content-Type: application/json');
 function fail(string $message, int $code = 400): never
 {
     http_response_code($code);

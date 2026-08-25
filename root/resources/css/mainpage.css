@@ -1,0 +1,1025 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+/* =========================================
+   CSS VARIABLES
+   (kept consistent with the marketing page)
+========================================= */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #eff6ff;
+
+    --success: #22c55e;
+    --success-dark: #16a34a;
+
+    --background: #f4f7fb;
+    --surface: #ffffff;
+    --surface-alt: #f8fafc;
+
+    --text: #111827;
+    --text-secondary: #6b7280;
+
+    --border: #e2e8f0;
+
+    --radius-sm: 0.625rem;
+    --radius-md: 1rem;
+    --radius-lg: 1.5rem;
+
+    --shadow-sm: 0 0.5rem 1.25rem rgba(15, 23, 42, 0.08);
+    --shadow-md: 0 1rem 2.5rem rgba(15, 23, 42, 0.12);
+    --shadow-lg: 0 1.5rem 3rem rgba(37, 99, 235, 0.16);
+
+    /* shared easing for every animated property in this file */
+    --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =========================================
+   RESET
+========================================= */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    min-width: 20rem;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Inter", sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 30%),
+        var(--background);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+/* =========================================
+   LAYOUT
+========================================= */
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    width: 100%;
+    max-width: 90rem;
+    margin: 0 auto;
+    padding: 2.5rem clamp(1.25rem, 4vw, 3rem) 4rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+/* =========================================
+   TOPBAR
+========================================= */
+.topbar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    animation: fadeInUp 0.5s var(--ease-smooth) both;
+}
+
+.topbar h1 {
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text);
+}
+
+.topbar p {
+    margin-top: 0.35rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* =========================================
+   PANELS (shared card shell)
+========================================= */
+.panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 1.75rem;
+
+    transition:
+        box-shadow 0.35s var(--ease-smooth),
+        transform 0.35s var(--ease-smooth),
+        border-color 0.35s var(--ease-smooth);
+
+    animation: fadeInUp 0.55s var(--ease-smooth) both;
+}
+
+.panel:hover {
+    box-shadow: var(--shadow-md);
+    border-color: rgba(37, 99, 235, 0.2);
+}
+
+.panel-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.panel-header h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.muted {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* =========================================
+   TRACKER PANEL HEADER
+========================================= */
+.tracker-panel {
+    animation-delay: 0.05s;
+}
+
+.tracker-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.tracker-header h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.tracker-header span {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* =========================================
+   MONTH CONTROLS
+========================================= */
+.month-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    margin-bottom: 1.25rem;
+}
+
+.month-controls button {
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface-alt);
+    color: var(--text);
+
+    transition:
+        background-color 0.25s var(--ease-smooth),
+        border-color 0.25s var(--ease-smooth),
+        transform 0.2s var(--ease-smooth),
+        color 0.25s var(--ease-smooth);
+}
+
+.month-controls button:first-child,
+.month-controls button:last-child {
+    width: 2.4rem;
+    height: 2.4rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.month-controls button:hover {
+    background: var(--primary-light);
+    border-color: rgba(37, 99, 235, 0.35);
+    color: var(--primary-dark);
+    transform: translateY(-0.1rem);
+}
+
+.month-controls button:active {
+    transform: translateY(0);
+}
+
+.today-button {
+    padding: 0 1.1rem;
+    height: 2.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* =========================================
+   ADD HABIT INPUT
+========================================= */
+.habit-input-container {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+}
+
+#habitInput {
+    flex: 1;
+    min-width: 0;
+    height: 2.75rem;
+    padding: 0 1rem;
+
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text);
+
+    background: var(--surface-alt);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+
+    transition:
+        border-color 0.25s var(--ease-smooth),
+        box-shadow 0.25s var(--ease-smooth),
+        background-color 0.25s var(--ease-smooth);
+}
+
+#habitInput::placeholder {
+    color: var(--text-secondary);
+}
+
+#habitInput:focus {
+    outline: none;
+    background: var(--surface);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+#addHabitButton {
+    flex-shrink: 0;
+    height: 2.75rem;
+    padding: 0 1.4rem;
+
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #fff;
+
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+
+    box-shadow: 0 0.6rem 1.25rem rgba(37, 99, 235, 0.22);
+
+    transition:
+        transform 0.25s var(--ease-smooth),
+        box-shadow 0.25s var(--ease-smooth),
+        background 0.25s var(--ease-smooth);
+}
+
+#addHabitButton:hover {
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    box-shadow: 0 0.9rem 1.75rem rgba(37, 99, 235, 0.3);
+    transform: translateY(-0.15rem);
+}
+
+#addHabitButton:active {
+    transform: translateY(0);
+}
+
+/* =========================================
+   TRACKER TABLE
+========================================= */
+.tracker-scroll {
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+}
+
+.tracker-scroll::-webkit-scrollbar {
+    height: 0.5rem;
+}
+
+.tracker-scroll::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 999px;
+}
+
+#trackerTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 46rem;
+    font-size: 0.8rem;
+}
+
+#trackerTable thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+
+    background: var(--surface-alt);
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    padding: 0.55rem 0.4rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+}
+
+.habit-header {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    text-align: left !important;
+    padding-left: 1rem !important;
+    background: var(--surface-alt);
+    min-width: 11rem;
+}
+
+.week-row th {
+    border-left: 1px solid var(--border);
+}
+
+.week-row th:first-child {
+    border-left: none;
+}
+
+.day-number {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: none;
+}
+
+th.week-start,
+td.week-start {
+    border-left: 1px solid var(--border);
+}
+
+#trackerBody tr {
+    transition: background-color 0.2s var(--ease-smooth);
+}
+
+#trackerBody tr:hover {
+    background: var(--surface-alt);
+}
+
+#trackerBody tr:not(:last-child) td {
+    border-bottom: 1px solid var(--border);
+}
+
+.habit-name {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+
+    background: var(--surface);
+    padding: 0.65rem 1rem;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+
+    display: table-cell;
+}
+
+#trackerBody tr:hover .habit-name {
+    background: var(--surface-alt);
+}
+
+.edit-habit {
+    margin-left: 0.6rem;
+    padding: 0.15rem 0.5rem;
+    font-family: inherit;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--text-secondary);
+
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    cursor: pointer;
+
+    opacity: 0;
+    transform: translateX(-0.25rem);
+
+    transition:
+        opacity 0.2s var(--ease-smooth),
+        transform 0.2s var(--ease-smooth),
+        background-color 0.2s var(--ease-smooth),
+        color 0.2s var(--ease-smooth);
+}
+
+#trackerBody tr:hover .edit-habit,
+.edit-habit:focus-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.edit-habit:hover {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    border-color: rgba(37, 99, 235, 0.35);
+}
+
+.day-cell {
+    text-align: center;
+    padding: 0.4rem;
+}
+
+.check-cell {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin: 0 auto;
+
+    border-radius: 0.4rem;
+    border: 1.5px solid var(--border);
+    background: var(--surface-alt);
+    cursor: pointer;
+
+    transition:
+        background-color 0.3s var(--ease-smooth),
+        border-color 0.3s var(--ease-smooth),
+        transform 0.18s var(--ease-smooth),
+        box-shadow 0.3s var(--ease-smooth);
+}
+
+.check-cell:hover {
+    border-color: var(--primary);
+    transform: scale(1.12);
+}
+
+.check-cell:active {
+    transform: scale(0.94);
+}
+
+.check-cell.completed {
+    background: linear-gradient(135deg, var(--success), var(--success-dark));
+    border-color: var(--success-dark);
+    box-shadow: 0 0.3rem 0.6rem rgba(34, 197, 94, 0.35);
+    animation: pop 0.3s var(--ease-smooth);
+}
+
+/* only today can be toggled — past/future days are locked */
+.check-cell.disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.check-cell.disabled:hover {
+    border-color: var(--border);
+    transform: none;
+}
+
+.check-cell.disabled.completed {
+    opacity: 0.7;
+}
+
+/* highlight the current day's column across header + body */
+th.today-column {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+td.today-column {
+    background: rgba(37, 99, 235, 0.05);
+}
+
+#trackerBody tr:hover td.today-column {
+    background: rgba(37, 99, 235, 0.09);
+}
+
+/* =========================================
+   ANALYTICS GRID
+========================================= */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.daily-panel {
+    animation-delay: 0.1s;
+}
+
+.weekly-panel {
+    animation-delay: 0.15s;
+}
+
+.progress-panel {
+    animation-delay: 0.2s;
+}
+
+/* =========================================
+   DAILY PROGRESS DETAILS
+========================================= */
+.daily-summary {
+    margin: -0.5rem 0 1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+
+    opacity: 0;
+    animation: fadeInUp 0.5s var(--ease-smooth) 0.15s both;
+}
+
+.daily-chart-wrap {
+    display: flex;
+    gap: 0.6rem;
+}
+
+/* y-axis: 100 / 75 / 50 / 25 / 0 */
+.chart-y-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 9rem;
+    padding-top: 0.5rem;
+
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.chart-y-axis span {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    line-height: 1;
+    transform: translateY(0.35em);
+}
+
+.daily-chart-main {
+    flex: 1;
+    min-width: 0;
+}
+
+/* =========================================
+   DAILY BAR CHART
+========================================= */
+.bar-chart {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.2rem;
+    height: 9rem;
+    padding-top: 0.5rem;
+
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+
+    /* gridlines at the 25% and 75% levels; 0/100 are the top/bottom borders above */
+    background-image:
+        linear-gradient(to top, transparent 24.5%, var(--border) 24.5%, var(--border) calc(24.5% + 1px), transparent calc(24.5% + 1px)),
+        linear-gradient(to top, transparent 49.5%, var(--border) 49.5%, var(--border) calc(49.5% + 1px), transparent calc(49.5% + 1px)),
+        linear-gradient(to top, transparent 74.5%, var(--border) 74.5%, var(--border) calc(74.5% + 1px), transparent calc(74.5% + 1px));
+}
+
+.bar {
+    flex: 1;
+    min-width: 0.2rem;
+    border-radius: 0.25rem 0.25rem 0 0;
+
+    background: linear-gradient(180deg, #60a5fa, var(--primary));
+    transform-origin: bottom;
+
+    animation: growUp 0.7s var(--ease-smooth) both;
+    transition:
+        height 0.6s var(--ease-smooth),
+        background 0.25s var(--ease-smooth),
+        transform 0.25s var(--ease-smooth);
+}
+
+.bar:hover {
+    background: linear-gradient(180deg, #93c5fd, var(--primary-dark));
+    transform: scaleY(1.02);
+}
+
+.bar-today {
+    background: linear-gradient(180deg, #fbbf24, #f59e0b);
+    box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.35);
+}
+
+.bar-today:hover {
+    background: linear-gradient(180deg, #fcd34d, #f59e0b);
+}
+
+/* x-axis: day numbers under the daily chart, aligned to each bar */
+.bar-chart-x-labels {
+    display: flex;
+    gap: 0.2rem;
+    margin-top: 0.35rem;
+}
+
+.bar-chart-x-labels span {
+    flex: 1;
+    min-width: 0.2rem;
+    text-align: center;
+
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.bar-chart-x-labels span.bar-label-today {
+    color: #f59e0b;
+    font-weight: 800;
+}
+
+/* stagger the bars slightly so the chart animates in like a wave */
+.bar-chart .bar:nth-child(1) {
+    animation-delay: 0.01s;
+}
+
+.bar-chart .bar:nth-child(2) {
+    animation-delay: 0.02s;
+}
+
+.bar-chart .bar:nth-child(3) {
+    animation-delay: 0.03s;
+}
+
+.bar-chart .bar:nth-child(4) {
+    animation-delay: 0.04s;
+}
+
+.bar-chart .bar:nth-child(5) {
+    animation-delay: 0.05s;
+}
+
+.bar-chart .bar:nth-child(6) {
+    animation-delay: 0.06s;
+}
+
+.bar-chart .bar:nth-child(7) {
+    animation-delay: 0.07s;
+}
+
+.bar-chart .bar:nth-child(8) {
+    animation-delay: 0.08s;
+}
+
+.bar-chart .bar:nth-child(9) {
+    animation-delay: 0.09s;
+}
+
+.bar-chart .bar:nth-child(10) {
+    animation-delay: 0.1s;
+}
+
+.bar-chart .bar:nth-child(n + 11) {
+    animation-delay: 0.11s;
+}
+
+/* =========================================
+   WEEKLY CHART
+========================================= */
+.weekly-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.9rem;
+    height: 9rem;
+    padding-top: 1.5rem;
+}
+
+.week-column {
+    flex: 1;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.4rem;
+}
+
+.week-column-percent {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+
+    opacity: 0;
+    transform: translateY(0.35rem);
+    animation: fadeInUp 0.5s var(--ease-smooth) 0.35s both;
+}
+
+.week-column-bar {
+    width: 100%;
+    max-width: 2.4rem;
+    border-radius: 0.5rem 0.5rem 0.2rem 0.2rem;
+
+    background: linear-gradient(180deg, #93c5fd, var(--primary));
+    transform-origin: bottom;
+
+    animation: growUp 0.8s var(--ease-smooth) both;
+    transition:
+        height 0.6s var(--ease-smooth),
+        background 0.25s var(--ease-smooth),
+        transform 0.25s var(--ease-smooth);
+}
+
+.week-column-bar:hover {
+    background: linear-gradient(180deg, #bfdbfe, var(--primary-dark));
+    transform: scaleY(1.02);
+}
+
+.week-column-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
+}
+
+/* =========================================
+   OVERALL PROGRESS CIRCLE
+========================================= */
+.circle-progress {
+    position: relative;
+    width: 8.5rem;
+    height: 8.5rem;
+    margin: 0.5rem auto 0;
+}
+
+.circle-progress svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.circle-bg {
+    fill: none;
+    stroke: var(--surface-alt);
+    stroke-width: 10;
+}
+
+.circle-value {
+    fill: none;
+    stroke: url(#none);
+    stroke: var(--primary);
+    stroke-width: 10;
+    stroke-linecap: round;
+
+    stroke-dasharray: 302;
+    stroke-dashoffset: 302;
+
+    transition: stroke-dashoffset 0.9s var(--ease-smooth);
+}
+
+.circle-text {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+}
+
+.circle-text strong {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+
+    transition: color 0.3s var(--ease-smooth);
+}
+
+.circle-text span {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+}
+
+/* =========================================
+   BOTTOM GRID
+========================================= */
+.bottom-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+}
+
+.line-panel {
+    animation-delay: 0.25s;
+}
+
+.stats-panel {
+    animation-delay: 0.3s;
+}
+
+/* =========================================
+   TREND CHART
+========================================= */
+#trendChart {
+    width: 100%;
+    height: 11rem;
+    color: var(--primary);
+    overflow: visible;
+}
+
+#trendLine {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+
+    animation: drawLine 1.4s var(--ease-smooth) forwards;
+    transition: points 0.6s var(--ease-smooth);
+}
+
+/* =========================================
+   QUICK STATS
+========================================= */
+.stats-panel h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+}
+
+.stat-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+
+    transition: padding-left 0.25s var(--ease-smooth);
+}
+
+.stat-row:last-child {
+    border-bottom: none;
+}
+
+.stat-row:hover {
+    padding-left: 0.25rem;
+}
+
+.stat-row span {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.stat-row strong {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    transition: color 0.3s var(--ease-smooth);
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(1rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes growUp {
+    from {
+        transform: scaleY(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+@keyframes drawLine {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.7);
+    }
+
+    60% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* =========================================
+   REDUCED MOTION ACCESSIBILITY
+========================================= */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* =========================================
+   TABLET
+========================================= */
+@media (max-width: 64rem) {
+    .analytics-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .progress-panel {
+        grid-column: span 2;
+    }
+
+    .bottom-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 48rem) {
+    .main-content {
+        padding: 1.75rem 1.1rem 3rem;
+        gap: 1.25rem;
+    }
+
+    .panel {
+        padding: 1.25rem;
+    }
+
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .progress-panel {
+        grid-column: auto;
+    }
+
+    .habit-input-container {
+        flex-direction: column;
+    }
+
+    #addHabitButton {
+        width: 100%;
+    }
+}
+
+@media (max-width: 30rem) {
+    .topbar h1 {
+        font-size: 1.4rem;
+    }
+
+    .circle-progress {
+        width: 7rem;
+        height: 7rem;
+    }
+
+    .circle-text strong {
+        font-size: 1.3rem;
+    }
+}
