@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-
 /* LOAD DATA */
 
 async function loadData() {
