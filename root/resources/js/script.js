@@ -1,32 +1,25 @@
+// Mohammad Zishan Ansari
 let habits = [];
 let completions = [];
 
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth();
 
-// Mohammad Zishan Ansari
 document.addEventListener("DOMContentLoaded", () => {
-
     loadData();
-
     const habitInput =
         document.getElementById("habitInput");
 
     habitInput.addEventListener("keydown", event => {
-
         if (event.key === "Enter") {
             event.preventDefault();
             createHabit();
         }
-
     });
-
 });
 
 /* LOAD DATA */
-
 async function loadData() {
-
     const response =
         await fetch("../config/api.php?action=getData");
 
@@ -38,36 +31,25 @@ async function loadData() {
 
     completions =
         data.completions || [];
-
     renderDashboard();
 }
 
 
 /* RENDER EVERYTHING */
-
 function renderDashboard() {
-
     renderDate();
-
     renderCalendar();
-
     updateStats();
-
     renderDailyChart();
-
     renderWeeklyChart();
-
     renderTrendChart();
 }
 
 
 /* DATE */
-
 function renderDate() {
-
     const date =
         new Date(currentYear, currentMonth);
-
     document.getElementById("monthTitle")
         .textContent =
         date.toLocaleString(
@@ -91,22 +73,16 @@ function renderDate() {
         );
 }
 
-
 /* DAYS IN MONTH */
-
 function getDaysInMonth() {
-
     return new Date(
         currentYear,
         currentMonth + 1,
         0
     ).getDate();
-
 }
 
-
 /* DATE STRING */
-
 function getDateString(day) {
 
     const month =
@@ -118,14 +94,10 @@ function getDateString(day) {
             .padStart(2, "0");
 
     return `${currentYear}-${month}-${dayNumber}`;
-
 }
 
-
 /* TODAY'S REAL DATE STRING (independent of the viewed month/year) */
-
 function getTodayString() {
-
     const today = new Date();
 
     const year =
@@ -140,14 +112,10 @@ function getTodayString() {
             .padStart(2, "0");
 
     return `${year}-${month}-${day}`;
-
 }
 
-
 /* ADD HABIT */
-
 async function createHabit() {
-
     const input =
         document.getElementById("habitInput");
 
@@ -155,18 +123,15 @@ async function createHabit() {
         input.value.trim();
 
     if (!name) return;
-
     const response =
         await fetch(
             "../config/api.php?action=addHabit",
             {
                 method: "POST",
-
                 headers: {
                     "Content-Type":
                         "application/json"
                 },
-
                 body:
                     JSON.stringify({
                         name: name
@@ -178,22 +143,16 @@ async function createHabit() {
         await response.json();
 
     if (data.success) {
-
         habits =
             data.habits;
 
         input.value = "";
-
         renderDashboard();
     }
-
 }
 
-
 /* CALENDAR */
-
 function renderCalendar() {
-
     const header =
         document.getElementById(
             "calendarHeader"
@@ -224,14 +183,10 @@ function renderCalendar() {
         <tr class="day-row">
         `;
 
-
     /* CREATE WEEK DIVISIONS */
-
     let day = 1;
     let week = 1;
-
     while (day <= days) {
-
         const remaining =
             days - day + 1;
 
@@ -243,19 +198,13 @@ function renderCalendar() {
                 WEEK ${week}
             </th>
         `;
-
         week++;
-
         day += 7;
     }
-
     weekHeader += "</tr>";
 
-
     /* DAY NUMBERS */
-
     for (let day = 1; day <= days; day++) {
-
         const date =
             new Date(
                 currentYear,
@@ -296,16 +245,12 @@ function renderCalendar() {
     }
 
     dayHeader += "</tr>";
-
     header.innerHTML =
         weekHeader +
         dayHeader;
 
-
     /* HABIT ROWS */
-
     if (habits.length === 0) {
-
         body.innerHTML = `
             <tr>
                 <td
@@ -321,14 +266,11 @@ function renderCalendar() {
                 </td>
             </tr>
         `;
-
         return;
     }
 
-
     body.innerHTML =
         habits.map(habit => {
-
             let row =
                 `
                 <tr>
@@ -347,10 +289,8 @@ function renderCalendar() {
                     </td>
                 `;
 
-
             const todayString =
                 getTodayString();
-
             for (
                 let day = 1;
                 day <= days;
@@ -382,7 +322,6 @@ function renderCalendar() {
                             ${isToday ? "today-column" : ""}
                         "
                     >
-
                         <div
                             class="
                                 check-cell
@@ -403,20 +342,14 @@ function renderCalendar() {
 
                     </td>
                 `;
-
             }
 
             row += "</tr>";
-
             return row;
-
         }).join("");
-
 }
 
-
 /* TOGGLE COMPLETION */
-
 async function toggleHabit(
     habitId,
     date
@@ -454,17 +387,13 @@ async function toggleHabit(
     renderDashboard();
 }
 
-
 /* EDIT OR DELETE HABIT */
-
 function editHabit(id) {
-
     const habit =
         habits.find(
             item =>
                 Number(item.id) === Number(id)
         );
-
     if (!habit) return;
 
     const action =
@@ -478,23 +407,17 @@ DELETE - Remove habit`
 
     if (!action) return;
 
-
     /* DELETE */
-
     if (
         action
             .trim()
             .toUpperCase() === "DELETE"
     ) {
-
         deleteHabit(id);
-
         return;
     }
 
-
     /* EDIT */
-
     if (
         action
             .trim()
@@ -516,16 +439,11 @@ DELETE - Remove habit`
                 id,
                 newName.trim()
             );
-
         }
-
     }
-
 }
 
-
 /* UPDATE HABIT */
-
 async function updateHabit(
     id,
     name
@@ -557,17 +475,12 @@ async function updateHabit(
 
         habits =
             data.habits;
-
         renderDashboard();
     }
-
 }
 
-
 /* DELETE HABIT */
-
 async function deleteHabit(id) {
-
     const habit =
         habits.find(
             item =>
@@ -575,15 +488,12 @@ async function deleteHabit(id) {
         );
 
     if (!habit) return;
-
     const confirmDelete =
         confirm(
             `Remove "${habit.name}"?`
         );
 
     if (!confirmDelete) return;
-
-
     const response =
         await fetch(
             `../config/api.php?action=deleteHabit&id=${id}`,
@@ -600,13 +510,10 @@ async function deleteHabit(id) {
 
     completions =
         data.completions || [];
-
     renderDashboard();
 }
 
-
 /* STATS */
-
 function updateStats() {
 
     const days =
@@ -636,7 +543,6 @@ function updateStats() {
             )
             : 0;
 
-
     document.getElementById(
         "totalHabits"
     ).textContent =
@@ -657,9 +563,7 @@ function updateStats() {
     ).textContent =
         percentage + "%";
 
-
     /* UPDATE CIRCLE */
-
     const circle =
         document.getElementById(
             "progressCircle"
@@ -676,20 +580,15 @@ function updateStats() {
     circle.style.strokeDashoffset =
         offset;
 
-
     document.getElementById(
         "bestStreak"
     ).textContent =
         calculateBestStreak() +
         " days";
-
 }
 
-
 /* DAILY PROGRESS CHART */
-
 function renderDailyChart() {
-
     const chart =
         document.getElementById(
             "dailyChart"
@@ -786,17 +685,12 @@ function renderDailyChart() {
                 ${showLabel ? day : ""}
             </span>
         `;
-
     }
-
     chart.innerHTML = html;
-
     if (labelsRow) {
         labelsRow.innerHTML = labelsHtml;
     }
-
     if (summary) {
-
         const average =
             days > 0
                 ? Math.round(percentageSum / days)
@@ -806,16 +700,11 @@ function renderDailyChart() {
             habits.length > 0
                 ? `Average ${average}% completed per day  •  Best day: ${bestDay} (${Math.round(bestPercentage)}%)`
                 : "Add a habit to see daily activity";
-
     }
-
 }
 
-
 /* WEEKLY PROGRESS - REAL CALCULATION */
-
 function renderWeeklyChart() {
-
     const chart =
         document.getElementById(
             "weeklyChart"
@@ -829,13 +718,11 @@ function renderWeeklyChart() {
 
     let html = "";
 
-
     for (
         let week = 0;
         week < totalWeeks;
         week++
     ) {
-
         const startDay =
             week * 7 + 1;
 
@@ -849,16 +736,13 @@ function renderWeeklyChart() {
             endDay -
             startDay +
             1;
-
         let weeklyCompleted = 0;
-
 
         for (
             let day = startDay;
             day <= endDay;
             day++
         ) {
-
             const date =
                 getDateString(day);
 
@@ -867,9 +751,7 @@ function renderWeeklyChart() {
                     item =>
                         item.completed_date === date
                 ).length;
-
         }
-
 
         const possible =
             habits.length *
@@ -884,7 +766,6 @@ function renderWeeklyChart() {
                     ) * 100
                 )
                 : 0;
-
 
         html += `
             <div class="week-column">
@@ -921,29 +802,21 @@ function renderWeeklyChart() {
 
             </div>
         `;
-
     }
-
     chart.innerHTML = html;
 }
 
-
 /* TREND CHART */
-
 function renderTrendChart() {
-
     const days =
         getDaysInMonth();
-
     const points = [];
-
 
     for (
         let day = 1;
         day <= days;
         day++
     ) {
-
         const date =
             getDateString(day);
 
@@ -972,9 +845,7 @@ function renderTrendChart() {
         points.push(
             `${x},${y}`
         );
-
     }
-
 
     document.getElementById(
         "trendLine"
@@ -982,14 +853,10 @@ function renderTrendChart() {
         "points",
         points.join(" ")
     );
-
 }
 
-
 /* STREAK */
-
 function calculateBestStreak() {
-
     const dates =
         [
             ...new Set(
@@ -1007,13 +874,11 @@ function calculateBestStreak() {
     let best = 1;
     let current = 1;
 
-
     for (
         let i = 1;
         i < dates.length;
         i++
     ) {
-
         const previous =
             new Date(
                 dates[i - 1] +
@@ -1035,58 +900,38 @@ function calculateBestStreak() {
                 86400000
             );
 
-
         if (difference === 1) {
 
             current++;
-
         } else {
-
             current = 1;
-
         }
-
 
         best =
             Math.max(
                 best,
                 current
             );
-
     }
-
     return best;
-
 }
 
-
 /* MONTH NAVIGATION */
-
 function changeMonth(direction) {
-
     currentMonth += direction;
-
     if (currentMonth < 0) {
-
         currentMonth = 11;
         currentYear--;
-
     }
 
     if (currentMonth > 11) {
-
         currentMonth = 0;
         currentYear++;
-
     }
-
     renderDashboard();
-
 }
 
-
 function goToToday() {
-
     const today =
         new Date();
 
@@ -1095,16 +940,11 @@ function goToToday() {
 
     currentMonth =
         today.getMonth();
-
     renderDashboard();
-
 }
 
-
 /* HTML ESCAPING */
-
 function escapeHtml(text) {
-
     const div =
         document.createElement("div");
 
@@ -1112,5 +952,4 @@ function escapeHtml(text) {
         text;
 
     return div.innerHTML;
-
 }
