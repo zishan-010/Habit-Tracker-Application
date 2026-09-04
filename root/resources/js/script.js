@@ -39,27 +39,23 @@ function renderDashboard() {
 /* DATE */
 function renderDate() {
     const date = new Date(currentYear, currentMonth);
-    document.getElementById("monthTitle")
-        .textContent =
-        date.toLocaleString(
-            "default",
-            {
-                month: "long",
-                year: "numeric"
-            }
-        );
+    document.getElementById("monthTitle").textContent = date.toLocaleString(
+        "default",
+        {
+            month: "long",
+            year: "numeric"
+        }
+    );
 
-    document.getElementById("currentDate")
-        .textContent =
-        new Date().toLocaleDateString(
-            "default",
-            {
-                weekday: "long",
-                day: "numeric",
-                month: "long",
-                year: "numeric"
-            }
-        );
+    document.getElementById("currentDate").textContent = new Date().toLocaleDateString(
+        "default",
+        {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }
+    );
 }
 
 /* DAYS IN MONTH */
@@ -73,11 +69,8 @@ function getDaysInMonth() {
 
 /* DATE STRING */
 function getDateString(day) {
-    const month = String(currentMonth + 1)
-        .padStart(2, "0");
-
-    const dayNumber = String(day)
-        .padStart(2, "0");
+    const month = String(currentMonth + 1).padStart(2, "0");
+    const dayNumber = String(day).padStart(2, "0");
     return `${currentYear}-${month}-${dayNumber}`;
 }
 
@@ -85,10 +78,8 @@ function getDateString(day) {
 function getTodayString() {
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1)
-        .padStart(2, "0");
-    const day = String(today.getDate())
-        .padStart(2, "0");
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
 }
 
@@ -122,12 +113,8 @@ async function createHabit() {
 
 /* CALENDAR */
 function renderCalendar() {
-    const header = document.getElementById(
-        "calendarHeader"
-    );
-    const body = document.getElementById(
-        "trackerBody"
-    );
+    const header = document.getElementById("calendarHeader");
+    const body = document.getElementById("trackerBody");
     const days = getDaysInMonth();
     let weekHeader = `
         <tr class="week-row">
@@ -193,9 +180,7 @@ function renderCalendar() {
     }
 
     dayHeader += "</tr>";
-    header.innerHTML =
-        weekHeader +
-        dayHeader;
+    header.innerHTML = weekHeader + dayHeader;
 
     /* HABIT ROWS */
     if (habits.length === 0) {
@@ -333,19 +318,13 @@ DELETE - Remove habit`
 
     /* EDIT */
     if (
-        action
-            .trim()
-            .toUpperCase() === "EDIT"
+        action.trim().toUpperCase() === "EDIT"
     ) {
-
         const newName = prompt(
             "Enter the new habit name:",
             habit.name
         );
-        if (
-            newName &&
-            newName.trim()
-        ) {
+        if (newName && newName.trim()) {
             updateHabit(
                 id,
                 newName.trim()
@@ -424,56 +403,26 @@ function updateStats() {
         )
         : 0;
 
-    document.getElementById(
-        "totalHabits"
-    ).textContent =
-        habits.length;
-
-    document.getElementById(
-        "completedHabits"
-    ).textContent =
-        completed;
-
-    document.getElementById(
-        "completionRate"
-    ).textContent =
-        percentage + "%";
-
-    document.getElementById(
-        "progressPercent"
-    ).textContent =
-        percentage + "%";
+    document.getElementById("totalHabits").textContent = habits.length;
+    document.getElementById("completedHabits").textContent = completed;
+    document.getElementById("completionRate").textContent = percentage + "%";
+    document.getElementById("progressPercent").textContent = percentage + "%";
 
     /* UPDATE CIRCLE */
     const circle = document.getElementById(
         "progressCircle"
     );
     const circumference = 302;
-    const offset = circumference -
-        (
-            percentage / 100
-        ) * circumference;
-
+    const offset = circumference - (percentage / 100) * circumference;
     circle.style.strokeDashoffset = offset;
-
-    document.getElementById(
-        "bestStreak"
-    ).textContent =
-        calculateBestStreak() +
-        " days";
+    document.getElementById("bestStreak").textContent = calculateBestStreak() + " days";
 }
 
 /* DAILY PROGRESS CHART */
 function renderDailyChart() {
-    const chart = document.getElementById(
-        "dailyChart"
-    );
-    const labelsRow = document.getElementById(
-        "dailyChartLabels"
-    );
-    const summary = document.getElementById(
-        "dailySummary"
-    );
+    const chart = document.getElementById("dailyChart");
+    const labelsRow = document.getElementById("dailyChartLabels");
+    const summary = document.getElementById("dailySummary");
     const days = getDaysInMonth();
     const todayString = getTodayString();
 
@@ -495,14 +444,8 @@ function renderDailyChart() {
                 item.completed_date === date
         ).length;
         const percentage = habits.length > 0
-            ? (
-                completed /
-                habits.length
-            ) * 100
-            : 0;
-
+            ? (completed / habits.length) * 100 : 0;
         percentageSum += percentage;
-
         if (percentage > bestPercentage) {
             bestPercentage = percentage;
             bestDay = day;
@@ -556,9 +499,7 @@ function renderDailyChart() {
 
 /* WEEKLY PROGRESS - REAL CALCULATION */
 function renderWeeklyChart() {
-    const chart = document.getElementById(
-        "weeklyChart"
-    );
+    const chart = document.getElementById("weeklyChart");
     const days = getDaysInMonth();
     const totalWeeks = Math.ceil(days / 7);
     let html = "";
@@ -572,9 +513,7 @@ function renderWeeklyChart() {
             startDay + 6,
             days
         );
-        const daysInWeek = endDay -
-            startDay +
-            1;
+        const daysInWeek = endDay - startDay + 1;
         let weeklyCompleted = 0;
         for (
             let day = startDay;
@@ -588,13 +527,7 @@ function renderWeeklyChart() {
             ).length;
         }
         const possible = habits.length * daysInWeek;
-        const percentage = possible > 0
-            ? Math.round(
-                (
-                    weeklyCompleted / possible
-                ) * 100
-            )
-            : 0;
+        const percentage = possible > 0 ? Math.round((weeklyCompleted / possible) * 100) : 0;
         html += `
             <div class="week-column">
                 <div
@@ -642,30 +575,12 @@ function renderTrendChart() {
             item =>
                 item.completed_date === date
         ).length;
-        const percentage = habits.length > 0
-            ? completed / habits.length
-            : 0;
-
-        const x = (day - 1) *
-            (
-                900 /
-                Math.max(days - 1, 1)
-            );
-
-        const y = 170 -
-            percentage * 150;
-
-        points.push(
-            `${x},${y}`
-        );
+        const percentage = habits.length > 0 ? completed / habits.length : 0;
+        const x = (day - 1) * (900 / Math.max(days - 1, 1));
+        const y = 170 - percentage * 150;
+        points.push(`${x},${y}`);
     }
-
-    document.getElementById(
-        "trendLine"
-    ).setAttribute(
-        "points",
-        points.join(" ")
-    );
+    document.getElementById("trendLine").setAttribute("points", points.join(" "));
 }
 
 /* STREAK */
@@ -691,25 +606,16 @@ function calculateBestStreak() {
         i < dates.length;
         i++
     ) {
-        const previous =
-            new Date(
-                dates[i - 1] +
-                "T00:00:00"
-            );
+        const previous = new Date(
+            dates[i - 1] +
+            "T00:00:00"
+        );
 
         const now = new Date(
             dates[i] +
             "T00:00:00"
         );
-
-        const difference = Math.round(
-            (
-                now -
-                previous
-            ) /
-            86400000
-        );
-
+        const difference = Math.round((now - previous) / 86400000);
         if (difference === 1) {
             current++;
         } else {

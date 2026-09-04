@@ -12,7 +12,6 @@
 <body>
     <div class="app">
         <main class="main-content">
-
             <!-- TOPBAR -->
             <div class="topbar">
                 <div>
@@ -20,7 +19,6 @@
                     <p id="currentDate"></p>
                 </div>
             </div>
-
             <!-- TRACKER PANEL -->
             <section class="panel tracker-panel">
                 <div class="tracker-header">
@@ -28,19 +26,16 @@
                         <h2 id="monthTitle"></h2>
                         <span>Only today's column can be checked off.</span>
                     </div>
-
                     <div class="month-controls">
                         <button type="button" onclick="changeMonth(-1)" aria-label="Previous month">&lsaquo;</button>
                         <button type="button" class="today-button" onclick="goToToday()">Current Month</button>
                         <button type="button" onclick="changeMonth(1)" aria-label="Next month">&rsaquo;</button>
                     </div>
                 </div>
-
                 <div class="habit-input-container">
                     <input type="text" id="habitInput" placeholder="Add a new habit, e.g. Drink water">
                     <button type="button" id="addHabitButton" onclick="createHabit()">ADD HABIT</button>
                 </div>
-
                 <div class="tracker-scroll">
                     <table id="trackerTable">
                         <thead id="calendarHeader"></thead>
@@ -51,16 +46,13 @@
 
             <!-- ANALYTICS GRID -->
             <section class="analytics-grid">
-
                 <!-- DAILY CHART -->
                 <div class="panel daily-panel">
                     <div class="panel-header">
                         <h3>Daily Progress</h3>
                         <span class="muted">This month</span>
                     </div>
-
                     <p class="daily-summary" id="dailySummary"></p>
-
                     <div class="daily-chart-wrap">
                         <div class="chart-y-axis">
                             <span>100%</span>
@@ -75,7 +67,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- WEEKLY CHART -->
                 <div class="panel weekly-panel">
                     <div class="panel-header">
@@ -84,14 +75,12 @@
                     </div>
                     <div class="weekly-chart" id="weeklyChart"></div>
                 </div>
-
                 <!-- OVERALL PROGRESS -->
                 <div class="panel progress-panel">
                     <div class="panel-header">
                         <h3>Overall Progress</h3>
                         <span class="muted">This month</span>
                     </div>
-
                     <div class="circle-progress">
                         <svg viewBox="0 0 100 100">
                             <circle class="circle-bg" cx="50" cy="50" r="48"></circle>
@@ -107,7 +96,6 @@
 
             <!-- BOTTOM GRID -->
             <section class="bottom-grid">
-
                 <!-- TREND LINE -->
                 <div class="panel line-panel">
                     <div class="panel-header">
@@ -121,9 +109,8 @@
                 </div>
 
                 <!-- QUICK STATS -->
-                <!-- <div class="panel stats-panel">
+                <div class="panel stats-panel">
                     <h3>Quick Stats</h3>
-
                     <div class="stat-row">
                         <span>Total Habits</span>
                         <strong id="totalHabits">0</strong>
@@ -140,12 +127,10 @@
                         <span>Best Streak</span>
                         <strong id="bestStreak">0 days</strong>
                     </div>
-                </div> -->
-
+                </div>
             </section>
         </main>
     </div>
-
     <script src="../resources/js/script.js"></script>
 </body>
 
