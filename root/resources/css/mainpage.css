@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
-/* Mohammad Zishan Ansari */
 /* =========================================
    CSS VARIABLES
    (kept consistent with the marketing page)
@@ -108,26 +107,23 @@ body {
 }
 
 /* =========================================
-   PANELS (shared card shell)
+   PANELS (shared card shell — no border, shadow only)
 ========================================= */
 .panel {
     background: var(--surface);
-    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
     padding: 1.75rem;
 
     transition:
         box-shadow 0.35s var(--ease-smooth),
-        transform 0.35s var(--ease-smooth),
-        border-color 0.35s var(--ease-smooth);
+        transform 0.35s var(--ease-smooth);
 
     animation: fadeInUp 0.55s var(--ease-smooth) both;
 }
 
 .panel:hover {
     box-shadow: var(--shadow-md);
-    border-color: rgba(37, 99, 235, 0.2);
 }
 
 .panel-header {
@@ -287,7 +283,7 @@ body {
     letter-spacing: 0.02em;
     color: #fff;
 
-    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    background: var(--primary);
     border: none;
     border-radius: var(--radius-sm);
     cursor: pointer;
@@ -301,7 +297,7 @@ body {
 }
 
 #addHabitButton:hover {
-    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    background: var(--primary-dark);
     box-shadow: 0 0.9rem 1.75rem rgba(37, 99, 235, 0.3);
     transform: translateY(-0.15rem);
 }
@@ -312,11 +308,12 @@ body {
 
 /* =========================================
    TRACKER TABLE
+   (table-layout: fixed divides the row width evenly across every
+   day column so the entire month fits on screen without scrolling)
 ========================================= */
 .tracker-scroll {
     overflow-x: auto;
     border-radius: var(--radius-md);
-    border: 1px solid var(--border);
 
     scrollbar-width: thin;
     scrollbar-color: var(--border) transparent;
@@ -333,10 +330,10 @@ body {
 
 #trackerTable {
     width: 100%;
+    table-layout: fixed;
     border-collapse: separate;
     border-spacing: 0;
-    min-width: 46rem;
-    font-size: 0.8rem;
+    font-size: clamp(0.55rem, 0.9vw, 0.8rem);
 }
 
 #trackerTable thead th {
@@ -347,14 +344,16 @@ body {
     background: var(--surface-alt);
     color: var(--text-secondary);
     font-weight: 600;
-    font-size: 0.72rem;
-    letter-spacing: 0.04em;
+    font-size: clamp(0.55rem, 0.75vw, 0.72rem);
+    letter-spacing: 0.03em;
     text-transform: uppercase;
 
-    padding: 0.55rem 0.4rem;
+    padding: 0.5rem 0.15rem;
     text-align: center;
     border-bottom: 1px solid var(--border);
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .habit-header {
@@ -362,9 +361,9 @@ body {
     left: 0;
     z-index: 3;
     text-align: left !important;
-    padding-left: 1rem !important;
+    padding-left: 0.85rem !important;
     background: var(--surface-alt);
-    min-width: 11rem;
+    width: 9rem;
 }
 
 .week-row th {
@@ -377,8 +376,8 @@ body {
 
 .day-number {
     display: block;
-    margin-top: 0.15rem;
-    font-size: 0.85rem;
+    margin-top: 0.1rem;
+    font-size: clamp(0.6rem, 0.9vw, 0.85rem);
     font-weight: 700;
     color: var(--text);
     text-transform: none;
@@ -407,10 +406,12 @@ td.week-start {
     z-index: 1;
 
     background: var(--surface);
-    padding: 0.65rem 1rem;
+    padding: 0.6rem 0.85rem;
     font-weight: 600;
     color: var(--text);
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     display: table-cell;
 }
@@ -457,12 +458,13 @@ td.week-start {
 
 .day-cell {
     text-align: center;
-    padding: 0.4rem;
+    padding: clamp(0.15rem, 0.4vw, 0.4rem);
 }
 
 .check-cell {
-    width: 1.4rem;
-    height: 1.4rem;
+    width: 68%;
+    aspect-ratio: 1 / 1;
+    max-width: 1.4rem;
     margin: 0 auto;
 
     border-radius: 0.4rem;
@@ -487,7 +489,7 @@ td.week-start {
 }
 
 .check-cell.completed {
-    background: linear-gradient(135deg, var(--success), var(--success-dark));
+    background: var(--success);
     border-color: var(--success-dark);
     box-shadow: 0 0.3rem 0.6rem rgba(34, 197, 94, 0.35);
     animation: pop 0.3s var(--ease-smooth);
@@ -613,7 +615,7 @@ td.today-column {
     min-width: 0.2rem;
     border-radius: 0.25rem 0.25rem 0 0;
 
-    background: linear-gradient(180deg, #60a5fa, var(--primary));
+    background: var(--primary);
     transform-origin: bottom;
 
     animation: growUp 0.7s var(--ease-smooth) both;
@@ -624,17 +626,17 @@ td.today-column {
 }
 
 .bar:hover {
-    background: linear-gradient(180deg, #93c5fd, var(--primary-dark));
+    background: var(--primary-dark);
     transform: scaleY(1.02);
 }
 
 .bar-today {
-    background: linear-gradient(180deg, #fbbf24, #f59e0b);
+    background: #f59e0b;
     box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.35);
 }
 
 .bar-today:hover {
-    background: linear-gradient(180deg, #fcd34d, #f59e0b);
+    background: #d97706;
 }
 
 /* x-axis: day numbers under the daily chart, aligned to each bar */
@@ -741,7 +743,7 @@ td.today-column {
     max-width: 2.4rem;
     border-radius: 0.5rem 0.5rem 0.2rem 0.2rem;
 
-    background: linear-gradient(180deg, #93c5fd, var(--primary));
+    background: var(--primary);
     transform-origin: bottom;
 
     animation: growUp 0.8s var(--ease-smooth) both;
@@ -752,7 +754,7 @@ td.today-column {
 }
 
 .week-column-bar:hover {
-    background: linear-gradient(180deg, #bfdbfe, var(--primary-dark));
+    background: var(--primary-dark);
     transform: scaleY(1.02);
 }
 
@@ -765,31 +767,34 @@ td.today-column {
 
 /* =========================================
    OVERALL PROGRESS CIRCLE
+   (thicker ring, stronger track contrast, and a soft glow
+   so the completion percentage stands out clearly)
 ========================================= */
 .circle-progress {
     position: relative;
-    width: 8.5rem;
-    height: 8.5rem;
+    width: 9.5rem;
+    height: 9.5rem;
     margin: 0.5rem auto 0;
+    filter: drop-shadow(0 0.35rem 0.6rem rgba(37, 99, 235, 0.18));
 }
 
 .circle-progress svg {
     width: 100%;
     height: 100%;
     transform: rotate(-90deg);
+    overflow: visible;
 }
 
 .circle-bg {
     fill: none;
-    stroke: var(--surface-alt);
-    stroke-width: 10;
+    stroke: var(--border);
+    stroke-width: 14;
 }
 
 .circle-value {
     fill: none;
-    stroke: url(#none);
     stroke: var(--primary);
-    stroke-width: 10;
+    stroke-width: 14;
     stroke-linecap: round;
 
     stroke-dasharray: 302;
@@ -810,7 +815,7 @@ td.today-column {
 }
 
 .circle-text strong {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: 800;
     letter-spacing: -0.02em;
     color: var(--text);
@@ -1008,6 +1013,28 @@ td.today-column {
     #addHabitButton {
         width: 100%;
     }
+
+    /* below tablet width, 31 fixed-width columns get too cramped to
+       tap reliably — fall back to the scrollable table instead */
+    #trackerTable {
+        table-layout: auto;
+        min-width: 46rem;
+        font-size: 0.8rem;
+    }
+
+    .habit-header {
+        width: auto;
+        min-width: 9rem;
+    }
+
+    .check-cell {
+        width: 1.4rem;
+        max-width: none;
+    }
+
+    .tracker-scroll {
+        overflow-x: auto;
+    }
 }
 
 @media (max-width: 30rem) {
@@ -1016,11 +1043,11 @@ td.today-column {
     }
 
     .circle-progress {
-        width: 7rem;
-        height: 7rem;
+        width: 7.5rem;
+        height: 7.5rem;
     }
 
     .circle-text strong {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
     }
 }
